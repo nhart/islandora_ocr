@@ -44,8 +44,9 @@ function islandora_ocr_highlighted_solr_search($query, $offset = 0, $limit = -1,
     "hl.snippets" => "8",
   ) + $params;
 
-  if (variable_get('islandora_solr_request_handler', FALSE)) {
-    $params['qt'] = variable_get('islandora_solr_request_handler', FALSE);
+  $request_handler = variable_get('islandora_solr_request_handler', FALSE);
+  if ($request_handler) {
+    $params['qt'] = $request_handler;
   }
 
   if (variable_get('islandora_solr_use_ui_qf', FALSE) || !islandora_solr_check_dismax()) {

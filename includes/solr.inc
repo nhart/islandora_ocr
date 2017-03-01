@@ -32,7 +32,6 @@ function islandora_ocr_highlighted_solr_search($query, $offset = 0, $limit = -1,
   // Our settings... We add in the original, items at the end.
   $params = array(
     'hl' => 'true',
-    'qt' => (variable_get('islandora_solr_request_handler', 'standard') ? variable_get('islandora_solr_request_handler', 'standard') : ''),
     'hl.fl' => variable_get('islandora_ocr_solr_hocr_highlighting_field', 'text_nodes_HOCR_hlt'),
     'hl.useFastVectorHighlighter' => variable_get('islandora_ocr_solr_hocr_highlighting_use_fast', TRUE) ? 'true' : 'false',
     // XXX: Could end up with a large fragment size with fielded
@@ -44,6 +43,11 @@ function islandora_ocr_highlighted_solr_search($query, $offset = 0, $limit = -1,
     "hl.fragsize" => max((int) (drupal_strlen($query) * 1.10), 18),
     "hl.snippets" => "8",
   ) + $params;
+
+  if (variable_get('islandora_solr_request_handler', FALSE)) {
+    $params['qt'] = variable_get('islandora_solr_request_handler', FALSE);
+  }
+
 
   if (variable_get('islandora_solr_use_ui_qf', FALSE) || !islandora_solr_check_dismax()) {
     // Put our "qf" in if we are configured to or have none from the

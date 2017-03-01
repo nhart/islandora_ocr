@@ -48,7 +48,6 @@ function islandora_ocr_highlighted_solr_search($query, $offset = 0, $limit = -1,
     $params['qt'] = variable_get('islandora_solr_request_handler', FALSE);
   }
 
-
   if (variable_get('islandora_solr_use_ui_qf', FALSE) || !islandora_solr_check_dismax()) {
     // Put our "qf" in if we are configured to or have none from the
     // request handler.
